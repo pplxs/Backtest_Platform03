@@ -1,0 +1,72 @@
+{% extends "backtest/performance_overview/base.html" %}
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Performance overview</title>
+    <link rel="stylesheet" href="{% static 'backtest/css/styles.css' %}">
+    <script src="{% static 'backtest/js/scripts.js' %}"></script>
+</head>
+<body>
+
+{% block content %}
+<div class="layout">
+    <div class="tabs">
+        <button class="tablinks" onclick="openTab(event, 'Performance')">绩效概览</button>
+        <button class="tablinks" onclick="openTab(event, 'Holdings')">持仓分析</button>
+<!--        <button class="tablinks" onclick="openTab(event, 'DailyDetails')">每日明细</button>-->
+        <button class="tablinks" onclick="openTab(event, 'Signals')">信号分析</button>
+        <button class="tablinks" onclick="openTab(event, 'Returns')">收益分析</button>
+    </div>
+    <div class="select-container">
+        <div id="Performance" class="tabcontent">
+            <h3>绩效概览</h3>
+            {% with performance_path=performance_combined.performance_path performance_indcators=performance_combined.performance_indcators show_report_path=performance_combined.show_report_path %}
+                {% include "backtest/performance_overview/performance.html" %}
+            {% endwith %}
+        </div>
+
+        <div id="Holdings" class="tabcontent" style="display:none">
+            <h3>持仓分析</h3>
+            {% include performance_position_path %}
+        </div>
+
+<!--        <div id="DailyDetails" class="tabcontent" style="display:none">-->
+<!--            <h3>每日明细</h3>-->
+<!--            <p>这里是每日明细的内容。</p>-->
+<!--        </div>-->
+
+        <div id="Signals" class="tabcontent" style="display:none">
+            <h3>信号分析</h3>
+            <div id="signal-container">
+                {% for symbol, signal_path in symbol_signal_path.items %}
+                    <button class="signal-btn" data-path="{{ signal_path }}">{{ symbol }}</button>
+                    <div id="{{ symbol }}" class="signal_path_hidden">
+                        {% with signal_path=signal_path %}
+                            {% include signal_path %}
+                        {% endwith %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div id="Returns" class="tabcontent" style="display:none">
+            <h3>收益分析</h3>
+            <div id="return-container">
+                {% for symbol_re, returnValues in symbol_returns_combined.items %}
+                    {% with return_path=returnValues.0 symbol_indicators=returnValues.1 %}
+                        <button class="return-btn" data-path="{{ return_path }}">{{ symbol_re }}</button>
+                        <div id="{{ symbol_re }}" class="return_path_hidden">
+                            {% include "backtest/performance_overview/returns.html" %}
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>configurationParameters</title>
+<!--    <script src="{% static 'backtest/js/loading.js' %}"></script>-->
+<!--    <link rel="stylesheet" href="{% static 'backtest/css/loading.css' %}">-->
+    <style>
+      table{
+        margin-left: auto;
+        margin-right: auto;
+      }
+      td{
+        padding: 10px;
+        }
+
+        #loading {
+
+        }
+    </style>
+
+
+</head>
+<body>
+    <div id="loading" style="display:none;">loading...</div>
+    <div id="other">
+        <h4>配置参数</h4>
+        <form id="dataForm" action="{% url 'load_data' %}" method="post" target="_blank">
+            {% csrf_token %}
+            <table class="form-table">
+              <tr>
+                <td><label for="exchange">交易所:</label></td>
+                <td><input type="text" id="exchange" name="exchange" value="binance" placeholder="binance"></td>
+              </tr>
+              <tr>
+                <td><label for="initial_cash">初始资金:</label></td>
+                <td><input type="text" id="initial_cash" name="initial_cash" value="1000000" placeholder="1000000"></td>
+              </tr>
+              <tr>
+                <td><label for="symbol">币种:</label></td>
+                <td><input type="text" id="symbol" name="symbol" value="EOSETH ACEUSDT" placeholder="EOSETH ACEUSDT"></td>
+                <td><label for="symbol_num">币种个数:</label></td>
+                <td><input type="text" id="symbol_num" name="symbol_num" value="2" placeholder="2"></td>
+              </tr>
+              <tr>
+                <td colspan="2">
+                  <label for="start_date">开始时间:</label>
+                  <input type="text" id="start_date" name="start_date" value="2024-2-10" placeholder="%Y-%m-%d">
+                  <label for="end_date">结束时间:</label>
+                  <input type="text" id="end_date" name="end_date" value="2024-10-12" placeholder="%Y-%m-%d">
+                    <label for="interval">周期:</label>
+                  <input type="text" id="interval" name="interval" value="daily" placeholder="daily">
+                </td>
+              </tr>
+              <tr>
+        <!--        <td>-->
+        <!--          <label for="take_fee">吃单:</label>-->
+        <!--          <input type="text" id="take_fee" name="take_fee" value="0.03" placeholder="0.03">-->
+        <!--        </td>-->
+        <!--        <td>-->
+        <!--          <label for="make_fee">挂单:</label>-->
+        <!--          <input type="text" id="make_fee" name="make_fee" value="0.03" placeholder="0.03">-->
+        <!--        </td>-->
+                <td>
+                  <label for="slip_fee">滑点:</label>
+                  <input type="text" id="slip_fee" name="slip_fee" value="0.05" placeholder="0.05">
+                </td>
+                <td>
+                  <label for="handing_fee">手续费:</label>
+                  <input type="text" id="handing_fee" name="handing_fee" value="0.05" placeholder="0.05">
+                </td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: center;">
+                  <input type="submit" value="提交">
+                </td>
+              </tr>
+            </table>
+        </form>
+
+    </div>
+
+</body>
+</html>

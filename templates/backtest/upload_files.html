@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+    <title>Upload Strategy File</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.4.12/ace.min.js"></script>
+    <script src="{% static 'backtest/js/loading.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'backtest/css/loading.css' %}">
+    <style>
+        .backtest {
+            position: fixed;
+            top: 5px;
+            right: 5px;
+            width: 300px;
+            height: auto;
+            background: white;
+            padding: 10px;
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+        }
+        #id_code{
+            width: 90%;
+            height: 100vh;
+            border: 1px solid #ccc;
+            background-color: black; /* 设置背景颜色为黑色 */
+            color: white; /* 设置文本颜色为白色 */
+        }
+
+    </style>
+    <script>
+        var uploadDiv = document.querySelector('.upload');
+        var uploadButton = document.getElementById('uploadButton');
+
+        if (uploadButton) {
+            uploadButton.addEventListener('click', function(event) {
+                event.preventDefault();
+                uploadDiv.style.display = 'hidden';
+            });
+        }
+
+    </script>
+</head>
+<body>
+    <div id="loading" style="display:none;">loading...</div>
+    <div id="other">
+        <div class="upload">
+            <h1>Upload Strategy File</h1>
+            <form method="post" action="{% url 'upload_files' %}" enctype="multipart/form-data" target="_blank">
+                {% csrf_token %}
+                <input type="file" name="myfile" accept=".py">
+                <button type="submit" id="uploadButton">Upload</button>
+            </form>
+        </div>
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+
+        {% if file_content %}
+            <div>
+                <div class="code">
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div class="backtest">
+                            <button type="submit" name="backtest" value="backtest" id="backtestButton">开始回测</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+    <!--            <div class="backtest">-->
+    <!--                <form method="post">-->
+    <!--                    {% csrf_token %}-->
+    <!--                    <button type="submit" name="backtest" value="backtest" id="backtestButton">开始回测</button>-->
+    <!--                </form>-->
+    <!--            </div>-->
+        {% endif %}
+    </div>
+</body>
+</html>

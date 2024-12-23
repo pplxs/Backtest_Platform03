@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>wait</title>
+<!--    <script src="{% static 'backtest/js/loading.js' %}"></script>-->
+    <script>
+        var csrftoken = "{{ csrf_token }}";
+        var taskId = "{{ task_id }}";
+        function checkTaskStatus() {
+            fetch('/load_data/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body: JSON.stringify({task_id: taskId}),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.task_complete) {
+                    // 任务完成，可以更新页面或重定向到结果页面
+                    window.location.href = '/upload_files/';
+                } else {
+                    // 任务未完成，等待一段时间后再次检查
+                    setTimeout(checkTaskStatus, 5000); // 每5秒检查一次
+                }
+            });
+        }
+            // 页面加载完成后开始轮询
+            pollForData();
+        });
+    </script>
+</head>
+<body>
+
+<div id="loading" style="display:block;">wait...</div>
+
+</body>
+</html>

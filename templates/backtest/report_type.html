@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>report type</title>
+</head>
+<body>
+
+<div>回测完成</div>
+<div class="centered-text"><a href="{% url 'report' %}?strategy_name={{strategy_name}}&symbol={{symbol}}&report_type=returns" target="_blank">report returns</a></div>
+<div class="centered-text"><a href="{% url 'report' %}?strategy_name={{strategy_name}}&symbol={{symbol}}&report_type=positions" target="_blank">report positions</a></div>
+</body>
+</html>

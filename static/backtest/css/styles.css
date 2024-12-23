@@ -1,0 +1,58 @@
+
+.layout {
+    display: flex;
+    flex-direction: row; /* 确保子元素水平排列 */
+    height: 100vh; /* 使布局占满整个视口高度 */
+}
+
+.tabs {
+    width: 100px; /* 设置固定宽度，或者使用百分比 */
+    background-color: #f0f0f0f0; /* 背景颜色，可选 */
+    padding: 5px;
+    overflow-y: auto; /* 如果内容超出，允许垂直滚动 */
+}
+
+.tablinks {
+    display: block; /* 使按钮垂直排列 */
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 5px;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: transparent; /* 设置背景颜色为透明 */
+}
+
+.select-container {
+    flex-grow: 1; /* 使内容区域占据剩余空间 */
+    padding: 5px;
+    overflow-y: auto; /* 如果内容超出，允许垂直滚动 */
+    height: 100vh; /* 使布局占满整个视口高度 */
+    border: 0px solid #ccc;
+}
+
+.tabcontent {
+    flex:1
+    display: none; /* 默认隐藏所有内容 */
+    padding: 10px;
+    border: 0px solid #ccc;
+    margin-bottom: 10px;
+    height: 100vh; /* 使布局占满整个视口高度 */
+    width: 100%;
+}
+
+.tabcontent #signal-container {
+    position: relative;
+    width:80%
+    border: 0px solid #ccc;
+    z-index: 0;
+}
+
+/* 信号分析 */
+.signal_path_hidden{
+    display: none;
+}
+
+/* 收益分析 */
+.return_path_hidden{
+    display: none;
+}
