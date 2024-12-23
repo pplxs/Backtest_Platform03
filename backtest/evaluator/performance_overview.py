@@ -1,3 +1,5 @@
+import time
+
 import numpy as np
 import pandas as pd
 
@@ -159,6 +161,7 @@ class PerformanceOverview:
             date_position.fillna(value={"position": 0, "signal":0,"cum_returns":1}, inplace=True)
             create_performance_signal(date_position, signal_path)
             symbol_signal_path[symbol] = signal_path
+            time.sleep(2)
         return symbol_signal_path
 
     def _pnl(self):
@@ -170,5 +173,5 @@ class PerformanceOverview:
             # 1.2 Ö¸±ê
             eval_quant = EvalByQuantStats(portfolio_value=self.symbol_portfolio_value[symbol],benchmark_price=self.benchmark_price,ann_risk_free=self.ann_risk_free)
             symbol_return_indcators[symbol]=self._performance_indcators(eval_quant=eval_quant,strategy_returns=eval_quant.returns)
-
+            time.sleep(2)
         return symbol_return_path, symbol_return_indcators

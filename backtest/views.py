@@ -1,9 +1,9 @@
 # coding=utf-8
+import time
 import warnings
 warnings.filterwarnings('ignore')
 
-import numpy as np
-import pandas as pd
+import time
 import asyncio
 import json
 from . import utils
@@ -239,16 +239,20 @@ def execute_strategy(req):
             performance_combined["performance_path"]=performance_path
             performance_combined["performance_indcators"]=performance_indcators
             performance_combined["show_report_path"]=show_report_path
+            time.sleep(2)
 
             # 持仓分析
             performance_position_path = perf_over._position()
+            time.sleep(2)
 
             # 信号分析
             symbol_signal_path = perf_over._signal()
+            time.sleep(2)
 
             # 收益分析
             symbol_return_path, symbol_return_indcators = perf_over._pnl()
             symbol_returns_combined = {symbol: (symbol_return_path[symbol], symbol_return_indcators[symbol]) for symbol in symbol_list}
+            time.sleep(2)
 
             return render(req,"backtest/performance_overview.html",{"performance_combined":performance_combined,
                                                                 "symbol_signal_path":symbol_signal_path,"symbol_returns_combined":symbol_returns_combined,
