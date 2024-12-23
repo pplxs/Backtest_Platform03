@@ -138,9 +138,14 @@ def load_and_process_data(symbol_list,start_date, end_date, interval):
 
     # 统一所有交易对的时间，确保有相同的时间维度
     date_range_all = []
-    for symbol in symbol_list:
-        all_data_tmp = all_data[all_data["symbol"] == symbol].sort_values(by='close_time')
-        date_range_all.append(all_data_tmp["close_time_date"].values.flatten())
+    symbol_list_tmp = symbol_list.copy()
+    symbol_list_tmp.append('BTCUSDC')
+    for symbol in symbol_list_tmp:
+        if symbol=='BTCUSDC':
+            date_range_all.append(benchmark["close_time_date"].values.flatten())
+        else:
+            all_data_tmp = all_data[all_data["symbol"] == symbol].sort_values(by='close_time')
+            date_range_all.append(all_data_tmp["close_time_date"].values.flatten())
     other_dates, date_range = find_unique_elements(date_range_all)
     all_data = all_data[~all_data["close_time_date"].isin(other_dates)].sort_values(by='close_time_date')
     benchmark = benchmark[~benchmark["close_time_date"].isin(other_dates)].sort_values(by='close_time_date')
@@ -149,4 +154,5 @@ def load_and_process_data(symbol_list,start_date, end_date, interval):
     all_data_json = all_data.to_json(orient='records')
     benchmark_json = benchmark.to_json(orient='records')
     date_range_json = date_range.to_json(orient='records')
+
     return all_data_json,benchmark_json,date_range_json
