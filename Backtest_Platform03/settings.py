@@ -39,10 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     'ace',
-    'django_celery_results',
     'backtest',
-    "backtest.celery",
-    "channels",
 ]
 
 MIDDLEWARE = [
@@ -61,7 +58,7 @@ ROOT_URLCONF = "Backtest_Platform03.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / 'templates'], # Ä£°å´æ·ÅÂ·¾¶
+        "DIRS": [BASE_DIR / 'templates'], # Ä£ï¿½ï¿½ï¿½ï¿½Â·ï¿½ï¿½
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -90,7 +87,7 @@ WSGI_APPLICATION = "Backtest_Platform03.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": "backtest_platform03", # ¿âÃû³Æ
+        "NAME": "backtest_platform03", # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         "USER":"root",
         "PASSWORD":"123456",
         "HOST":"localhost",
@@ -132,9 +129,9 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-# ÅäÖÃstaticÎÄ¼þÂ·¾¶
+# ï¿½ï¿½ï¿½ï¿½staticï¿½Ä¼ï¿½Â·ï¿½ï¿½
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']  # Èç¹ûÄãµÄ static ÎÄ¼þ¼ÐÔÚÏîÄ¿¸ùÄ¿Â¼ÏÂ
+STATICFILES_DIRS = [BASE_DIR / 'static']  # ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ static ï¿½Ä¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¿ï¿½ï¿½Ä¿Â¼ï¿½ï¿½
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -143,15 +140,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 DEFAULT_CHARSET = 'utf-8'
 
-# Ö¸¶¨ÎÄ¼þÉÏ´«µÄ¸ùÄ¿Â¼
+# Ö¸ï¿½ï¿½ï¿½Ä¼ï¿½ï¿½Ï´ï¿½ï¿½Ä¸ï¿½Ä¿Â¼
 MEDIA_ROOT = str(BASE_DIR) +'\\backtest/analyse_engine/strategies/'
 MEDIA_URL = '/strategies/'
 
-# Celery ÅäÖÃ
-CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672//'  # RabbitMQ URL
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
-CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = 'UTC'
-CELERY_BEAT = 'celery'  # Celery Ó¦ÓÃÃû³Æ
-CELERY_RESULT_BACKEND = 'django-db' # ½á¹û´æ´¢
+
+

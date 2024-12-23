@@ -7,7 +7,6 @@ urlpatterns = [
     path('db_insert/',db_insert),
     path('configurate_parameters/',configurate_parameters,name="configurate_parameters"),
     path('load_data/',load_data,name="load_data"),
-    # path('choose_strategy/',choose_strategy,name="choose_strategy"),
     path('upload_files/',upload_files,name="upload_files"),
     path('execute_strategy/',execute_strategy,name="execute_strategy"),
 

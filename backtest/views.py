@@ -1,34 +1,25 @@
 # coding=utf-8
-import asyncio
 import warnings
 warnings.filterwarnings('ignore')
 
 import numpy as np
 import pandas as pd
+import asyncio
 import json
 from . import utils
 
-
 from django.shortcuts import render, HttpResponse, redirect
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.http import JsonResponse
 from .data_loader.operate_database import *
-from .models import *
 from .trade_engine.trade.trade import *
 from .evaluator.performance_overview import *
 from .evaluator.evalution_quantStats import *
 from django.core.files.storage import FileSystemStorage
-import subprocess
 import os
 from django.conf import settings
 import hashlib
 import importlib.util
 from .forms import CodeForm
-from .async_tasks import load_and_process_data,app
-from celery.result import AsyncResult
-from django.http import JsonResponse
-from channels.layers import get_channel_layer
+
 
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -144,9 +135,9 @@ def execute_strategy(req):
     strategy_name = req.session.get('strategy_name', None)
     strategy_path = req.session.get('strategy_path', None)
 
-    all_data_json = req.session.get('all_data_json',None)
-    benchmark_json = req.session.get('benchmark_json',None)
-    date_range_json = req.session.get('date_range_json',None)
+    all_data_json = req.session.get('all_data_json', None)
+    benchmark_json = req.session.get('benchmark_json', None)
+    date_range_json = req.session.get('date_range_json', None)
 
     # json -> dataframe or list
     all_data = pd.read_json(all_data_json, orient='records')
@@ -154,13 +145,12 @@ def execute_strategy(req):
     benchmark = pd.read_json(benchmark_json, orient='records')
     # 修改时间格式
     date_range = [utils.timestamp_datetime(x) for x in date_range]
-    all_data['close_time'] = all_data['close_time'].apply(lambda x:utils.datetime_timestamp(x))
-    all_data['close_time_date'] = all_data['close_time_date'].apply(lambda x:utils.timestamp_datetime(x))
+    all_data['close_time'] = all_data['close_time'].apply(lambda x: utils.datetime_timestamp(x))
+    all_data['close_time_date'] = all_data['close_time_date'].apply(lambda x: utils.timestamp_datetime(x))
     benchmark['close_time'] = benchmark['close_time'].apply(lambda x: utils.datetime_timestamp(x))
     benchmark['close_time_date'] = benchmark['close_time_date'].apply(lambda x: utils.timestamp_datetime(x))
     benchmark_price = benchmark["close"]
     benchmark_price.index = date_range
-
 
     ae_log_path = str(BASE_DIR) + f'\\backtest/analyse_engine/log/{strategy_name}.log'
     te_log_path = str(BASE_DIR) + f'\\backtest/trade_engine/log/{strategy_name}.log'

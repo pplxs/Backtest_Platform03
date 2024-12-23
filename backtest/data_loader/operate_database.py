@@ -2,10 +2,9 @@ from django.shortcuts import render, HttpResponse
 import mysql.connector
 from ..models import *
 from mysql.connector import Error
-from django.core.exceptions import ObjectDoesNotExist
 import pandas as pd
-from asgiref.sync import sync_to_async
 from django.http import Http404
+import numpy as np
 
 # daily
 DataInfo = BinanceSpotKlineDaily  # 日线的model
@@ -115,3 +114,39 @@ def db_filter(DataInfo,symbol_list,start_date,end_date):
             raise Http404(f"{symbol_list[i]} is not exist!")
     data.reset_index(inplace=True, drop=True)
     return data
+
+def load_and_process_data(symbol_list,start_date, end_date, interval):
+    # 加载数据
+    DataInfo = None
+    if interval == "daily":
+        DataInfo = BinanceSpotKlineDaily
+    all_data = db_filter(DataInfo, symbol_list, start_date, end_date)  # 返回所有data
+    benchmark = db_filter(DataInfo, ['BTCUSDC'], start_date, end_date)  # 基准
+
+    # 统一去除时区， 因为quantstats中的数据未设置时区
+    all_data["close_time_date"] = all_data["close_time_date"].apply(lambda x: x.replace(tzinfo=None))
+    benchmark["close_time_date"] = benchmark["close_time_date"].apply(lambda x: x.replace(tzinfo=None))
+
+    def find_unique_elements(lists):
+        sets = [set(lst) for lst in lists]
+        common_elements = set.intersection(*sets)
+        unique_elements = []
+        for s in sets:
+            unique_in_set = list(s - common_elements)
+            unique_elements.extend(unique_in_set)
+        return list(set(unique_elements)), list(common_elements)
+
+    # 统一所有交易对的时间，确保有相同的时间维度
+    date_range_all = []
+    for symbol in symbol_list:
+        all_data_tmp = all_data[all_data["symbol"] == symbol].sort_values(by='close_time')
+        date_range_all.append(all_data_tmp["close_time_date"].values.flatten())
+    other_dates, date_range = find_unique_elements(date_range_all)
+    all_data = all_data[~all_data["close_time_date"].isin(other_dates)].sort_values(by='close_time_date')
+    benchmark = benchmark[~benchmark["close_time_date"].isin(other_dates)].sort_values(by='close_time_date')
+    date_range = pd.Series(np.unique(benchmark["close_time_date"].values.flatten()))
+    # 由于默认返回JSON格式数据， 将 DataFrame 转换为 JSON 格式
+    all_data_json = all_data.to_json(orient='records')
+    benchmark_json = benchmark.to_json(orient='records')
+    date_range_json = date_range.to_json(orient='records')
+    return all_data_json,benchmark_json,date_range_json
