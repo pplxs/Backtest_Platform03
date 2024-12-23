@@ -56,7 +56,7 @@ def load_data(req):
         req.session['all_data_json'] = all_data_json
         req.session['benchmark_json'] = benchmark_json
         req.session['date_range_json'] = date_range_json
-        return render(req, "backtest/upload_files.html")
+    return render(req, "backtest/upload_files.html")
 
 def upload_files(req):
     context = {}

@@ -1,3 +1,4 @@
+# coding=utf-8
 """
 Django settings for Backtest_Platform03 project.
 
@@ -24,7 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-(^8!g#zyvq1#b)sz_-_%$bx=r+ru58&k*)j0ryz*^^#180q@p3"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -132,6 +133,7 @@ USE_TZ = True
 # ����static�ļ�·��
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']  # ������ static �ļ�������Ŀ��Ŀ¼��
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
