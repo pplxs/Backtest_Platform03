@@ -1,131 +1,123 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>绩效概览</title>-->
-    <style>
-        .performance {
-            display: flex;
-            font-family: Arial, sans-serif;
-            margin: 2px;
-        }
 
-        .chart-container {
-            flex: 3;
-            padding: 10px;
-            height: 100vh; /* 使图表容器占满整个视口高度 */
-            overflow-y: auto; /* 如果图表内容不需要滚动，可以设置为hidden */
-        }
+<style>
+    .performance {
+        display: flex;
+        font-family: Arial, sans-serif;
+        margin: 2px;
+    }
 
-        .indicator-container-r {
-            display: flex;
-            width: 20%;
-            flex-direction: row; /* 设置方向为水平 */
-            flex-wrap: wrap; /* 允许项目换行 */
-            justify-content: space-between; /* 项目之间的间隔均匀分布 */
-            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
-            z-index: 1000;
-            border-left: 0px solid #000;
-        }
+    .chart-container {
+        flex: 3;
+        padding: 10px;
+        height: 100vh; /* 使图表容器占满整个视口高度 */
+        overflow-y: auto; /* 如果图表内容不需要滚动，可以设置为hidden */
+    }
 
-        .indicator {
-            flex-basis: calc(50% - 2px);
-            min-width: 0px;
-            margin: 1px;
-        }
-    </style>
-<!--</head>-->
-<!--<body>-->
-    <div class="performance">
-        <div class="chart-container">
-            <h2>收益图</h2>
-            {% include return_path %}
-        </div>
-        <div class="indicator-container-r">
-            <div class="indicator">
-                <h3>期初资产</h3>
-                <p>{{symbol_indicators.initial_assets}} USDT</p>
-            </div>
-            <div class="indicator">
-                <h3>期末资产</h3>
-                <p>{{symbol_indicators.end_term_assets}} USDT</p>
-            </div>
-            <div class="indicator">
-                <h3>累计盈亏</h3>
-                <p>{{symbol_indicators.cum_pnl}} USDT</p>
-            </div>
-            <div class="indicator">
-                <h3>累计手续费</h3>
-                <p></p>
-            </div>
-            <div class="indicator">
-                <h3>累计收益率</h3>
-                <p>{{symbol_indicators.accumulate_return}}</p>
-            </div>
-            <div class="indicator">
-                <h3>基准收益率</h3>
-                <p>{{symbol_indicators.benchmark_accumulate_return}}</p>
-            </div>
-            <div class="indicator">
-                <h3>超额收益率</h3>
-                <p>{{symbol_indicators.excess_return}}</p>
-            </div>
-            <div class="indicator">
-                <h3>年化收益率</h3>
-                <p>{{symbol_indicators.annualized_return}}</p>
-            </div>
-            <div class="indicator">
-                <h3>最大回撤</h3>
-                <p>{{symbol_indicators.max_drawdown}}</p>
-            </div>
-            <div class="indicator">
-                <h3>胜率</h3>
-                <p>{{symbol_indicators.winRate}}</p>
-            </div>
-            <div class="indicator">
-                <h3>年化波动率</h3>
-                <p>{{symbol_indicators.annualized_volatity}}</p>
-            </div>
-            <div class="indicator">
-                <h3>alpha</h3>
-                <p>{{symbol_indicators.alpha}}</p>
-            </div>
-            <div class="indicator">
-                <h3>beta</h3>
-                <p>{{symbol_indicators.beta}}</p>
-            </div>
-            <div class="indicator">
-                <h3>夏普比率</h3>
-                <p>{{symbol_indicators.sharp_ratio}}</p>
-            </div>
-            <div class="indicator">
-                <h3>索提诺比率</h3>
-                <p>{{symbol_indicators.sortino_ratio}}</p>
-            </div>
-            <div class="indicator">
-                <h3>卡玛比率</h3>
-                <p>{{symbol_indicators.calmar_ratio}}</p>
-            </div>
-            <div class="indicator">
-                <h3>信息比率</h3>
-                <p>{{symbol_indicators.info_ratio}}</p>
-            </div>
-            <div class="indicator">
-                <h3>特雷诺比率</h3>
-                <p>{{symbol_indicators.treynor_ratio}}</p>
-            </div>
-            <div class="indicator">
-                <h3>无风险利率</h3>
-                <p>{{symbol_indicators.ann_risk_free}}</p>
-            </div>
-            <div class="indicator">
-                <h3>交易天数</h3>
-                <p>{{symbol_indicators.trade_days}}</p>
-            </div>
+    .indicator-container-r {
+        display: flex;
+        width: 20%;
+        flex-direction: row; /* 设置方向为水平 */
+        flex-wrap: wrap; /* 允许项目换行 */
+        justify-content: space-between; /* 项目之间的间隔均匀分布 */
+        box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+        border-left: 0px solid #000;
+    }
 
-        </div>
+    .indicator {
+        flex-basis: calc(50% - 2px);
+        min-width: 0px;
+        margin: 1px;
+    }
+</style>
+
+<div class="performance">
+    <div class="chart-container">
+        <h2>收益图</h2>
+        {% include return_path %}
     </div>
+    <div class="indicator-container-r">
+        <div class="indicator">
+            <h3>期初资产</h3>
+            <p>{{symbol_indicators.initial_assets}} USDT</p>
+        </div>
+        <div class="indicator">
+            <h3>期末资产</h3>
+            <p>{{symbol_indicators.end_term_assets}} USDT</p>
+        </div>
+        <div class="indicator">
+            <h3>累计盈亏</h3>
+            <p>{{symbol_indicators.cum_pnl}} USDT</p>
+        </div>
+        <div class="indicator">
+            <h3>累计手续费</h3>
+            <p></p>
+        </div>
+        <div class="indicator">
+            <h3>累计收益率</h3>
+            <p>{{symbol_indicators.accumulate_return}}</p>
+        </div>
+        <div class="indicator">
+            <h3>基准收益率</h3>
+            <p>{{symbol_indicators.benchmark_accumulate_return}}</p>
+        </div>
+        <div class="indicator">
+            <h3>超额收益率</h3>
+            <p>{{symbol_indicators.excess_return}}</p>
+        </div>
+        <div class="indicator">
+            <h3>年化收益率</h3>
+            <p>{{symbol_indicators.annualized_return}}</p>
+        </div>
+        <div class="indicator">
+            <h3>最大回撤</h3>
+            <p>{{symbol_indicators.max_drawdown}}</p>
+        </div>
+        <div class="indicator">
+            <h3>胜率</h3>
+            <p>{{symbol_indicators.winRate}}</p>
+        </div>
+        <div class="indicator">
+            <h3>年化波动率</h3>
+            <p>{{symbol_indicators.annualized_volatity}}</p>
+        </div>
+        <div class="indicator">
+            <h3>alpha</h3>
+            <p>{{symbol_indicators.alpha}}</p>
+        </div>
+        <div class="indicator">
+            <h3>beta</h3>
+            <p>{{symbol_indicators.beta}}</p>
+        </div>
+        <div class="indicator">
+            <h3>夏普比率</h3>
+            <p>{{symbol_indicators.sharp_ratio}}</p>
+        </div>
+        <div class="indicator">
+            <h3>索提诺比率</h3>
+            <p>{{symbol_indicators.sortino_ratio}}</p>
+        </div>
+        <div class="indicator">
+            <h3>卡玛比率</h3>
+            <p>{{symbol_indicators.calmar_ratio}}</p>
+        </div>
+        <div class="indicator">
+            <h3>信息比率</h3>
+            <p>{{symbol_indicators.info_ratio}}</p>
+        </div>
+        <div class="indicator">
+            <h3>特雷诺比率</h3>
+            <p>{{symbol_indicators.treynor_ratio}}</p>
+        </div>
+        <div class="indicator">
+            <h3>无风险利率</h3>
+            <p>{{symbol_indicators.ann_risk_free}}</p>
+        </div>
+        <div class="indicator">
+            <h3>交易天数</h3>
+            <p>{{symbol_indicators.trade_days}}</p>
+        </div>
 
-<!--</body>-->
-<!--</html>-->
+    </div>
+</div>
+

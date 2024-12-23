@@ -1,153 +1,145 @@
-<!--<!DOCTYPE html>-->
-<!--<html lang="en">-->
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
-<!--    <title>绩效概览</title>-->
-    <style>
-        .performance-p {
-            display: flex;
-            font-family: Arial, sans-serif;
-            margin: 2px;
-        }
 
-        .graphs-container {
-              flex:3;
-              width: 60%
-              flex-direction: column; /* 确保子元素垂直排列 */
-              height: 100vh; /* 使父容器占满整个视口高度 */
-              overflow:hidden;
-        }
+<style>
+    .performance-p {
+        display: flex;
+        font-family: Arial, sans-serif;
+        margin: 2px;
+    }
 
-        .chart-container-p {
-              display: flex;
-              flex-direction: column; /* 确保它们垂直排列 */
-              padding: 2px;
-              height: 50vh; /* 可以根据需要调整高度 */
-              overflow-x: auto; /* 允许水平滚动 */
-              overflow-y: auto; /* 允许垂直滚动 */
-              border-bottom: 2px dashed #ccc; /* 添加虚线下边框 */
-        }
+    .graphs-container {
+          flex:3;
+          width: 60%
+          flex-direction: column; /* 确保子元素垂直排列 */
+          height: 100vh; /* 使父容器占满整个视口高度 */
+          overflow:hidden;
+    }
 
-        .show_report {
-            flex: 1;
-            padding: 2px;
-            height: 50vh; /* 可以根据需要调整高度 */
-            overflow-x: auto; /* 允许水平滚动 */
-            overflow-y: auto; /* 允许垂直滚动 */
-        }
+    .chart-container-p {
+          display: flex;
+          flex-direction: column; /* 确保它们垂直排列 */
+          padding: 2px;
+          height: 50vh; /* 可以根据需要调整高度 */
+          overflow-x: auto; /* 允许水平滚动 */
+          overflow-y: auto; /* 允许垂直滚动 */
+          border-bottom: 2px dashed #ccc; /* 添加虚线下边框 */
+    }
 
-        .indicator-container-p {
-            display: flex;
-            width: 40%;
-            flex-direction: row; /* 设置方向为水平 */
-            flex-wrap: wrap; /* 允许项目换行 */
-            justify-content: space-between; /* 项目之间的间隔均匀分布 */
-            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
-            z-index: 1000;
-            border-left: 0px solid #000;
-        }
+    .show_report {
+        flex: 1;
+        padding: 2px;
+        height: 50vh; /* 可以根据需要调整高度 */
+        overflow-x: auto; /* 允许水平滚动 */
+        overflow-y: auto; /* 允许垂直滚动 */
+    }
 
-        .indicator {
-            flex-basis: calc(50% - 2px);
-            min-width: 0px;
-            margin: 1px;
-        }
-    </style>
-<!--</head>-->
-<!--<body>-->
-    <div class="performance-p">
-        <div class=".graphs-container">
-            <div class="chart-container-p">
-                {% include performance_path %}
-            </div>
-            <div class="show_report">
-                {% include show_report_path %}
-            </div>
+    .indicator-container-p {
+        display: flex;
+        width: 40%;
+        flex-direction: row; /* 设置方向为水平 */
+        flex-wrap: wrap; /* 允许项目换行 */
+        justify-content: space-between; /* 项目之间的间隔均匀分布 */
+        box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+        z-index: 1000;
+        border-left: 0px solid #000;
+    }
+
+    .indicator {
+        flex-basis: calc(50% - 2px);
+        min-width: 0px;
+        margin: 1px;
+    }
+</style>
+
+<div class="performance-p">
+    <div class=".graphs-container">
+        <div class="chart-container-p">
+            {% include performance_path %}
         </div>
-        <div class="indicator-container-p">
-            <div class="indicator">
-                <h3>期初资产</h3>
-                <span>{{performance_indcators.initial_assets}} USDT</span>
-            </div>
-            <div class="indicator">
-                <h3>期末资产</h3>
-                <span>{{performance_indcators.end_term_assets}} USDT</span>
-            </div>
-            <div class="indicator">
-                <h3>累计盈亏</h3>
-                <span>{{performance_indcators.cum_pnl}} USDT</span>
-            </div>
-            <div class="indicator">
-                <h3>累计手续费</h3>
-                <span></span>
-            </div>
-            <div class="indicator">
-                <h3>累计收益率</h3>
-                <span>{{performance_indcators.accumulate_return}}</span>
-            </div>
-            <div class="indicator">
-                <h3>基准收益率</h3>
-                <span>{{performance_indcators.benchmark_accumulate_return}}</span>
-            </div>
-            <div class="indicator">
-                <h3>超额收益率</h3>
-                <span>{{performance_indcators.excess_return}}</span>
-            </div>
-            <div class="indicator">
-                <h3>年化收益率</h3>
-                <span>{{performance_indcators.annualized_return}}</span>
-            </div>
-            <div class="indicator">
-                <h3>最大回撤</h3>
-                <span>{{performance_indcators.max_drawdown}}</span>
-            </div>
-            <div class="indicator">
-                <h3>胜率</h3>
-                <span>{{performance_indcators.winRate}}</span>
-            </div>
-            <div class="indicator">
-                <h3>年化波动率</h3>
-                <span>{{performance_indcators.annualized_volatity}}</span>
-            </div>
-            <div class="indicator">
-                <h3>alpha</h3>
-                <span>{{performance_indcators.alpha}}</span>
-            </div>
-            <div class="indicator">
-                <h3>beta</h3>
-                <span>{{performance_indcators.beta}}</span>
-            </div>
-            <div class="indicator">
-                <h3>夏普比率</h3>
-                <span>{{performance_indcators.sharp_ratio}}</span>
-            </div>
-            <div class="indicator">
-                <h3>索提诺比率</h3>
-                <span>{{performance_indcators.sortino_ratio}}</span>
-            </div>
-            <div class="indicator">
-                <h3>卡玛比率</h3>
-                <span>{{performance_indcators.calmar_ratio}}</span>
-            </div>
-            <div class="indicator">
-                <h3>信息比率</h3>
-                <span>{{performance_indcators.info_ratio}}</span>
-            </div>
-            <div class="indicator">
-                <h3>特雷诺比率</h3>
-                <span>{{performance_indcators.treynor_ratio}}</span>
-            </div>
-            <div class="indicator">
-                <h3>无风险利率</h3>
-                <span>{{performance_indcators.ann_risk_free}}</span>
-            </div>
-            <div class="indicator">
-                <h3>交易天数</h3>
-                <span>{{performance_indcators.trade_days}}</span>
-            </div>
-
+        <div class="show_report">
+            {% include show_report_path %}
         </div>
     </div>
-<!--</body>-->
-<!--</html>-->
+    <div class="indicator-container-p">
+        <div class="indicator">
+            <h3>期初资产</h3>
+            <span>{{performance_indcators.initial_assets}} USDT</span>
+        </div>
+        <div class="indicator">
+            <h3>期末资产</h3>
+            <span>{{performance_indcators.end_term_assets}} USDT</span>
+        </div>
+        <div class="indicator">
+            <h3>累计盈亏</h3>
+            <span>{{performance_indcators.cum_pnl}} USDT</span>
+        </div>
+        <div class="indicator">
+            <h3>累计手续费</h3>
+            <span></span>
+        </div>
+        <div class="indicator">
+            <h3>累计收益率</h3>
+            <span>{{performance_indcators.accumulate_return}}</span>
+        </div>
+        <div class="indicator">
+            <h3>基准收益率</h3>
+            <span>{{performance_indcators.benchmark_accumulate_return}}</span>
+        </div>
+        <div class="indicator">
+            <h3>超额收益率</h3>
+            <span>{{performance_indcators.excess_return}}</span>
+        </div>
+        <div class="indicator">
+            <h3>年化收益率</h3>
+            <span>{{performance_indcators.annualized_return}}</span>
+        </div>
+        <div class="indicator">
+            <h3>最大回撤</h3>
+            <span>{{performance_indcators.max_drawdown}}</span>
+        </div>
+        <div class="indicator">
+            <h3>胜率</h3>
+            <span>{{performance_indcators.winRate}}</span>
+        </div>
+        <div class="indicator">
+            <h3>年化波动率</h3>
+            <span>{{performance_indcators.annualized_volatity}}</span>
+        </div>
+        <div class="indicator">
+            <h3>alpha</h3>
+            <span>{{performance_indcators.alpha}}</span>
+        </div>
+        <div class="indicator">
+            <h3>beta</h3>
+            <span>{{performance_indcators.beta}}</span>
+        </div>
+        <div class="indicator">
+            <h3>夏普比率</h3>
+            <span>{{performance_indcators.sharp_ratio}}</span>
+        </div>
+        <div class="indicator">
+            <h3>索提诺比率</h3>
+            <span>{{performance_indcators.sortino_ratio}}</span>
+        </div>
+        <div class="indicator">
+            <h3>卡玛比率</h3>
+            <span>{{performance_indcators.calmar_ratio}}</span>
+        </div>
+        <div class="indicator">
+            <h3>信息比率</h3>
+            <span>{{performance_indcators.info_ratio}}</span>
+        </div>
+        <div class="indicator">
+            <h3>特雷诺比率</h3>
+            <span>{{performance_indcators.treynor_ratio}}</span>
+        </div>
+        <div class="indicator">
+            <h3>无风险利率</h3>
+            <span>{{performance_indcators.ann_risk_free}}</span>
+        </div>
+        <div class="indicator">
+            <h3>交易天数</h3>
+            <span>{{performance_indcators.trade_days}}</span>
+        </div>
+
+    </div>
+</div>
